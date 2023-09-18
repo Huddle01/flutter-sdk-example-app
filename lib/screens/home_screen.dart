@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:huddle01_flutter/data/value_notifiers.dart';
 import 'package:huddle01_flutter/huddle_client.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,16 +17,14 @@ class _HomeScreenState extends State<HomeScreen> {
   String projectId = 'XBQsbfXdUWW7YlkyF9Yb7BSft6aILeOW';
   String roomId = 'hqr-bqwu-upz';
 
-  // remote-stream
-  RTCVideoRenderer? remoteRenderer;
-  initilialize() async {
-    remoteRenderer = RTCVideoRenderer();
-    await remoteRenderer!.initialize();
-    remoteRenderer!.srcObject = huddleClient.getRemoteStream();
+  getPermissions() async {
+    await Permission.camera.request();
+    await Permission.microphone.request();
   }
 
   @override
   void initState() {
+    getPermissions();
     huddleClient.huddleEventListeners();
     super.initState();
   }
@@ -35,12 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  initilializeRemoteRenderer() async {
+  // remote-stream
+  RTCVideoRenderer? remoteRenderer;
+  initilialize() async {
     remoteRenderer = RTCVideoRenderer();
     await remoteRenderer!.initialize();
     remoteRenderer!.srcObject = huddleClient.getRemoteStream();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
