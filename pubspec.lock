@@ -203,13 +203,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
-  huddle01_flutter:
+  huddle01_flutter_client:
     dependency: "direct main"
     description:
-      path: "../huddle01_flutter"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: huddle01_flutter_client
+      sha256: c1d413c28815200d82a246ec7f0e2e0958fb9ca159026f3f177a32c17914ec2c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-beta"
   io:
     dependency: transitive
     description:

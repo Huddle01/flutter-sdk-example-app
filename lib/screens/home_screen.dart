@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:huddle01_flutter/data/value_notifiers.dart';
-import 'package:huddle01_flutter/huddle_client.dart';
+import 'package:huddle01_flutter_client/data/value_notifiers.dart';
+import 'package:huddle01_flutter_client/huddle_client.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   initilialize() async {
     remoteRenderer = RTCVideoRenderer();
     await remoteRenderer!.initialize();
-    remoteRenderer!.srcObject = huddleClient.getRemoteStream();
+    remoteRenderer!.srcObject = huddleClient.getFirstRemoteStream();
   }
   @override
   Widget build(BuildContext context) {
