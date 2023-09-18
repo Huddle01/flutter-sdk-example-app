@@ -375,22 +375,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       : null),
             ),
-            const Text(
-              "Remote Stream",
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
             TextButton(
-              child: const Text('Get Remote Stream'),
-              onPressed: () async {
-                await initilialize();
+              child: const Text(
+                'Get Remote Stream',
+                style: TextStyle(fontSize: 18),
+              ),
+              onPressed: () {
+                initilialize();
               },
             ),
-            const SizedBox(
-              height: 10,
-            ),
+          
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
               child: Container(
