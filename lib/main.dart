@@ -1,20 +1,8 @@
-import 'dart:io';
 import 'package:example_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  HttpOverrides.global = MyHttpOverrides();
+void main() {
   runApp(const MyApp());
-}
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
 }
 
 class MyApp extends StatelessWidget {
