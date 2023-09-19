@@ -15,13 +15,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HuddleClient huddleClient = HuddleClient();
 
-  String projectId = 'XBQsbfXdUWW7YlkyF9Yb7BSft6aILeOW';
-  String roomId = 'hqr-bqwu-upz';
+  String projectId = 'YOUR-PROJECT-ID';
+  String roomId = 'YOUR-ROOM-ID';
+
 
   getPermissions() async {
     await Permission.camera.request();
     await Permission.microphone.request();
   }
+
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await remoteRenderer!.initialize();
     remoteRenderer!.srcObject = huddleClient.getFirstRemoteStream();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -385,7 +388,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 initilialize();
               },
             ),
-          
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
               child: Container(
