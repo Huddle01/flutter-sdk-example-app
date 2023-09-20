@@ -5,6 +5,8 @@ import 'package:huddle01_flutter_client/huddle_client.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
+import '../widgets/custom_snackbar.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,17 +20,16 @@ class _HomeScreenState extends State<HomeScreen> {
   String projectId = 'YOUR-PROJECT-ID';
   String roomId = 'YOUR-ROOM-ID';
 
-
   getPermissions() async {
     await Permission.camera.request();
     await Permission.microphone.request();
   }
 
-
   @override
   void initState() {
     getPermissions();
     huddleClient.huddleEventListeners();
+  
     super.initState();
   }
 
@@ -72,14 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isInitializedCallable()) {
                       huddleClient.initialize(projectId);
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('INITIALIZE -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'INITIALIZE');
                     }
                   },
                 ),
@@ -89,14 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isJoinLobbyCallable()) {
                       huddleClient.joinLobby(roomId);
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('JOIN-LOBBY -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'JOIN-LOBBY');
                     }
                   },
                 ),
@@ -106,14 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isJoinRoomCallable()) {
                       huddleClient.joinRoom();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('JOIN-ROOM -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'JOIN-ROOM');
                     }
                   },
                 ),
@@ -123,14 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isLeaveLobbyCallable()) {
                       huddleClient.leaveLobby();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('LEAVE-LOBBY -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'LEAVE-LOBBY');
                     }
                   },
                 ),
@@ -140,14 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isleaveRoomCallable()) {
                       huddleClient.leaveRoom();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('LEAVE-ROOM -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'LEAVE-ROOM');
                     }
                   },
                 ),
@@ -157,14 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isEndRoomCallable()) {
                       huddleClient.endRoom();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('END-ROOM -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'END-ROOM');
                     }
                   },
                 ),
@@ -183,14 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isFetchAudioStreamCallable()) {
                       huddleClient.fetchAudioStream();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('FETCH AUDIO STREAM -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'FETCH AUDIO STREAM');
                     }
                   },
                 ),
@@ -200,31 +152,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isProduceAudioCallable()) {
                       huddleClient.produceAudio(huddleClient.getAudioStream());
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('PRODUCE AUDIO -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'PRODUCE AUDIO');
                     }
                   },
                 ),
                 TextButton(
-                  child: const Text('STOP AUDIO STREAM'),
+                  child: const Text(
+                    'STOP AUDIO\nSTREAM',
+                    textAlign: TextAlign.center,
+                  ),
                   onPressed: () {
                     if (huddleClient.isStopAudioStreamCallable()) {
                       huddleClient.stopAudioStream();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('STOP AUDIO STREAM -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'STOP AUDIO STREAM');
                     }
                   },
                 ),
@@ -237,15 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isStopProducingAudioCallable()) {
                       huddleClient.stopProducingAudio();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content:
-                            Text('STOP PRODUCTING AUDIO -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'STOP PRODUCING AUDIO');
                     }
                   },
                 ),
@@ -259,19 +192,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: const Text("ENUMERATE CAM DEVICE")),
                 TextButton(
-                  child: const Text('FETCH VIDEO STREAM'),
+                  child: const Text(
+                    'FETCH VIDEO\nSTREAM',
+                    textAlign: TextAlign.center,
+                  ),
                   onPressed: () {
                     if (huddleClient.isFetchVideoStreamCallable()) {
                       huddleClient.fetchVideoStream();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('FETCH VIDEO STREAM -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'FETCH VIDEO STREAM');
                     }
                   },
                 ),
@@ -281,49 +210,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (huddleClient.isProduceVideoCallable()) {
                       huddleClient.produceVideo(huddleClient.getVideoStream());
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('PRODUCE VIDEO -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'PRODUCE VIDEO');
                     }
                   },
                 ),
                 TextButton(
-                  child: const Text('STOP VIDEO STREAM'),
+                  child: const Text(
+                    'STOP VIDEO\nSTREAM',
+                    textAlign: TextAlign.center,
+                  ),
                   onPressed: () {
                     if (huddleClient.isStopVideoStreamCallable()) {
                       huddleClient.stopVideoStream();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('STOP VIDEO STREAM -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'STOP VIDEO STREAM');
                     }
                   },
                 ),
                 TextButton(
-                  child: const Text('STOP PRODUCTING VIDEO'),
+                  child: const Text(
+                    'STOP PRODUCTING\nVIDEO',
+                    textAlign: TextAlign.center,
+                  ),
                   onPressed: () {
                     if (huddleClient.isStopProducingVideoCallable()) {
                       huddleClient.stopProducingVideo();
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content:
-                            Text('STOP PRODUCTING VIDEO -> not callable yet'),
-                        backgroundColor: Colors.red,
-                        elevation: 4,
-                        behavior: SnackBarBehavior.floating,
-                        margin: EdgeInsets.all(5),
-                        duration: Duration(seconds: 1),
-                      ));
+                      customSnackbar(context, 'STOP PRODUCTING VIDEO');
                     }
                   },
                 ),
@@ -335,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
           children: [
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             ValueListenableBuilder(
               valueListenable: roomState,
@@ -359,11 +272,24 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             const SizedBox(
-              height: 25,
+              height: 15,
             ),
-            const Text(
-              "Local Stream",
-              style: TextStyle(fontSize: 18),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.grey.shade800,
+              ),
+              child: const Text(
+                'Get Local Video Stream',
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+              onPressed: () {
+                setState(() {});
+              },
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -379,14 +305,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       : null),
             ),
+            const SizedBox(
+              height: 5,
+            ),
             TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.grey.shade800,
+              ),
               child: const Text(
                 'Get Remote Stream',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 14),
               ),
-              onPressed: () {
-                initilialize();
+              onPressed: () async {
+                await initilialize();
+                setState(() {});
               },
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
