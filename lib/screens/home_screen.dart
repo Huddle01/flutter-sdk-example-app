@@ -330,7 +330,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.grey,
                   width: 500,
                   height: 250,
-                  child: huddleClient.getConsumers().isNotEmpty
+                  child: huddleClient.getConsumers().isNotEmpty &&
+                          remoteRenderer != null
                       ? RTCVideoView(
                           remoteRenderer!,
                           objectFit:
