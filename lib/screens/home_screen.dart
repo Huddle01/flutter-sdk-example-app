@@ -17,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HuddleClient huddleClient = HuddleClient();
 
-  String projectId = 'YOUR-PROJECT-ID';
-  String roomId = 'YOUR-ROOM-ID';
+  String projectId = 'YOUR_PROJECT_ID';
+  String roomId = 'YOUR_ROOM_ID';
 
   getPermissions() async {
     await Permission.camera.request();
@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     getPermissions();
     huddleClient.huddleEventListeners();
-  
     super.initState();
   }
 
@@ -245,102 +244,131 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         )),
         Expanded(
-            child: Column(
-          children: [
-            const SizedBox(
-              height: 5,
-            ),
-            ValueListenableBuilder(
-              valueListenable: roomState,
-              builder: (ctx, val, _) {
-                return Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.blueGrey.shade100),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Room State\n ${val['roomState']}",
-                        textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(fontSize: 15, color: Colors.black),
-                      ),
-                    ],
+          child: ListView(
+            children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 15,
                   ),
-                );
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.grey.shade800,
+                  ValueListenableBuilder(
+                    valueListenable: roomState,
+                    builder: (ctx, val, _) {
+                      return Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.blueGrey.shade100),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Room State\n ${val['roomState']}",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: peersList,
+                    builder: (ctx, val, _) {
+                      return Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.blueGrey.shade100),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Peers\n $val",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.grey.shade800,
+                    ),
+                    child: const Text(
+                      'Get Local Video Stream',
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {});
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    child: Container(
+                        color: Colors.grey,
+                        width: 500,
+                        height: 250,
+                        child: huddleClient.getRenderer() != null
+                            ? RTCVideoView(
+                                huddleClient.getRenderer()!,
+                                objectFit: RTCVideoViewObjectFit
+                                    .RTCVideoViewObjectFitCover,
+                              )
+                            : null),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.grey.shade800,
+                    ),
+                    child: const Text(
+                      'Get Remote Stream',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    onPressed: () async {
+                      await initilialize();
+                      setState(() {});
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    child: Container(
+                        color: Colors.grey,
+                        width: 500,
+                        height: 250,
+                        child: huddleClient.getConsumers().isNotEmpty &&
+                                remoteRenderer != null
+                            ? RTCVideoView(
+                                remoteRenderer!,
+                                objectFit: RTCVideoViewObjectFit
+                                    .RTCVideoViewObjectFitCover,
+                              )
+                            : null),
+                  ),
+                ],
               ),
-              child: const Text(
-                'Get Local Video Stream',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              onPressed: () {
-                setState(() {});
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-              child: Container(
-                  color: Colors.grey,
-                  width: 500,
-                  height: 250,
-                  child: huddleClient.getRenderer() != null
-                      ? RTCVideoView(
-                          huddleClient.getRenderer()!,
-                          objectFit:
-                              RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
-                        )
-                      : null),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.grey.shade800,
-              ),
-              child: const Text(
-                'Get Remote Stream',
-                style: TextStyle(fontSize: 14),
-              ),
-              onPressed: () async {
-                await initilialize();
-                setState(() {});
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-              child: Container(
-                  color: Colors.grey,
-                  width: 500,
-                  height: 250,
-                  child: huddleClient.getConsumers().isNotEmpty &&
-                          remoteRenderer != null
-                      ? RTCVideoView(
-                          remoteRenderer!,
-                          objectFit:
-                              RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
-                        )
-                      : null),
-            ),
-          ],
-        )),
+            ],
+          ),
+        ),
       ]),
     );
   }
