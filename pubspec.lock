@@ -207,10 +207,10 @@ packages:
     dependency: "direct main"
     description:
       name: huddle01_flutter_client
-      sha256: "21d081aec47f628422ca9c0dd4b8dda0bb6614c2dab5e5a0bb7f96b6f4ad4820"
+      sha256: "26e1e21e8f43cac5c8acc5e35dcd0c9c92d0556838256a794ce8585655276517"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-betav1"
+    version: "0.0.1-beta-v3"
   io:
     dependency: transitive
     description:
