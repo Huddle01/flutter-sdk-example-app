@@ -86,6 +86,18 @@ class _ACLMethodsState extends State<ACLMethods> {
             widget.huddleClient.sendData('*', "Hello Huddle01!");
           },
         ),
+        TextButton(
+          child: const Text('Lock Audio'),
+          onPressed: () {
+            widget.huddleClient.changeRoomControls("audioLocked", true);
+          },
+        ),
+        TextButton(
+          child: const Text('Unlock Audio'),
+          onPressed: () {
+            widget.huddleClient.changeRoomControls("audioLocked", false);
+          },
+        ),
       ],
     );
   }
