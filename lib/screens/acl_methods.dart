@@ -87,6 +87,18 @@ class _ACLMethodsState extends State<ACLMethods> {
           },
         ),
         TextButton(
+          child: const Text('Lock Room'),
+          onPressed: () {
+            widget.huddleClient.changeRoomControls("roomLocked", true);
+          },
+        ),
+        TextButton(
+          child: const Text('Unlock Room'),
+          onPressed: () {
+            widget.huddleClient.changeRoomControls("roomLocked", false);
+          },
+        ),
+        TextButton(
           child: const Text('Lock Audio'),
           onPressed: () {
             widget.huddleClient.changeRoomControls("audioLocked", true);
@@ -96,6 +108,22 @@ class _ACLMethodsState extends State<ACLMethods> {
           child: const Text('Unlock Audio'),
           onPressed: () {
             widget.huddleClient.changeRoomControls("audioLocked", false);
+          },
+        ),
+        TextButton(
+          child: const Text('Admit Peer'),
+          onPressed: () {
+            List lobbyPeers = widget.huddleClient.lobbyPeers;
+            String admitFirstPeer = lobbyPeers[0]['peerId'];
+            widget.huddleClient.admitPeer([admitFirstPeer]);
+          },
+        ),
+        TextButton(
+          child: const Text('Deny Peer'),
+          onPressed: () {
+            List lobbyPeers = widget.huddleClient.lobbyPeers;
+            String denyFirstPeer = lobbyPeers[0]['peerId'];
+            widget.huddleClient.denyPeer([denyFirstPeer]);
           },
         ),
       ],
