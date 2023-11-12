@@ -151,10 +151,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_webrtc
-      sha256: da6fb0f0f9515b2c64608011e3ad314e6a858bbf1c57477f418621996e7d22d2
+      sha256: "8522e9f347aed9f03ec591d05fc286a698c1b11a1a6d3e994e92727d24c6f352"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.45"
+    version: "0.9.46"
   frontend_server_client:
     dependency: transitive
     description:
@@ -207,10 +207,10 @@ packages:
     dependency: "direct main"
     description:
       name: huddle01_flutter_client
-      sha256: bbb1ef4b210af62b0ac236a8bb42489417f8e3896e32e4882ca17ad9f24632f2
+      sha256: "0e5a1afd1ef1762cf3959ed10b91dd17b3342e6284c1db5d9d0ef8f079796f70"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-beta-v5.1.4"
+    version: "0.0.1-beta-v5.2"
   io:
     dependency: transitive
     description:
@@ -271,10 +271,10 @@ packages:
     dependency: transitive
     description:
       name: mediasoup_engine
-      sha256: d23d7a2d28f8e36a4279e676c0e7adb0c00eedbd8218c10c57234512fbe786f4
+      sha256: d0907bf4c1cff4b117c66b8bd2d234d53e8e3fc92d68a485ddd65dab66eac022
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.2"
   meta:
     dependency: transitive
     description:

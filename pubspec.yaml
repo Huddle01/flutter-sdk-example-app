@@ -9,8 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_webrtc: ^0.9.41
-
-  huddle01_flutter_client: ^0.0.1-beta-v5.1.4
+  huddle01_flutter_client: ^0.0.1-beta-v5.2
   permission_handler: ^11.0.0
 
 dev_dependencies:

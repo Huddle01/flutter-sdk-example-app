@@ -52,7 +52,7 @@ class _ACLMethodsState extends State<ACLMethods> {
           },
         ),
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: TextField(
             controller: displayNameController,
             decoration: const InputDecoration(
