@@ -1,11 +1,9 @@
-import 'package:example_app/screens/acl_methods.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:huddle01_flutter_client/huddle01_flutter_client.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 
 import '../widgets/custom_snackbar.dart';
+import 'acl_methods.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,9 +13,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HuddleClient huddleClient = HuddleClient();
   String projectId = 'YOUR_PROJECT_ID';
   String roomId = 'YOUR_ROOM_ID';
+
+  HuddleClient huddleClient = HuddleClient();
+
   getPermissions() async {
     await Permission.camera.request();
     await Permission.microphone.request();
@@ -37,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // remote-stream
   RTCVideoRenderer? remoteRenderer;
-  initilialize() async {
+  initilializeRemoteStream() async {
     remoteRenderer = RTCVideoRenderer();
-    await remoteRenderer!.initialize();
+    await remoteRenderer?.initialize();
     remoteRenderer!.srcObject = huddleClient.getFirstRemoteStream();
   }
 
@@ -71,7 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isInitializedCallable()) {
                         huddleClient.initialize(projectId);
                       } else {
-                        customSnackbar(context, 'INITIALIZE');
+                        customSnackbar(
+                            context, 'INITIALIZE -> not callable yet');
                       }
                     },
                   ),
@@ -81,7 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isJoinLobbyCallable()) {
                         huddleClient.joinLobby(roomId);
                       } else {
-                        customSnackbar(context, 'JOIN-LOBBY');
+                        customSnackbar(
+                            context, 'JOIN-LOBBY -> not callable yet');
                       }
                     },
                   ),
@@ -91,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isJoinRoomCallable()) {
                         huddleClient.joinRoom();
                       } else {
-                        customSnackbar(context, 'JOIN-ROOM');
+                        customSnackbar(
+                            context, 'JOIN-ROOM -> not callable yet');
                       }
                     },
                   ),
@@ -101,7 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isLeaveLobbyCallable()) {
                         huddleClient.leaveLobby();
                       } else {
-                        customSnackbar(context, 'LEAVE-LOBBY');
+                        customSnackbar(
+                            context, 'LEAVE-LOBBY -> not callable yet');
                       }
                     },
                   ),
@@ -111,7 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isleaveRoomCallable()) {
                         huddleClient.leaveRoom();
                       } else {
-                        customSnackbar(context, 'LEAVE-ROOM');
+                        customSnackbar(
+                            context, 'LEAVE-ROOM -> not callable yet');
                       }
                     },
                   ),
@@ -121,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isEndRoomCallable()) {
                         huddleClient.endRoom();
                       } else {
-                        customSnackbar(context, 'END-ROOM');
+                        customSnackbar(context, 'END-ROOM -> not callable yet');
                       }
                     },
                   ),
@@ -129,21 +134,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Audio',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        huddleClient.enumerateMicDevices();
-                      },
-                      child: const Text(
-                        "ENUMERATE MIC DEVICE",
-                        textAlign: TextAlign.center,
-                      )),
+
                   TextButton(
                     child: const Text('FETCH AUDIO STREAM'),
                     onPressed: () {
                       if (huddleClient.isFetchAudioStreamCallable()) {
                         huddleClient.fetchAudioStream();
                       } else {
-                        customSnackbar(context, 'FETCH AUDIO STREAM');
+                        customSnackbar(
+                            context, 'FETCH AUDIO STREAM -> not callable yet');
                       }
                     },
                   ),
@@ -154,23 +153,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         huddleClient
                             .produceAudio(huddleClient.getAudioStream());
                       } else {
-                        customSnackbar(context, 'PRODUCE AUDIO');
+                        customSnackbar(
+                            context, 'PRODUCE AUDIO -> not callable yet');
                       }
                     },
                   ),
-                  TextButton(
-                    child: const Text(
-                      'STOP AUDIO STREAM',
-                      textAlign: TextAlign.center,
-                    ),
-                    onPressed: () {
-                      if (huddleClient.isStopAudioStreamCallable()) {
-                        huddleClient.stopAudioStream();
-                      } else {
-                        customSnackbar(context, 'STOP AUDIO STREAM');
-                      }
-                    },
-                  ),
+
                   TextButton(
                     child: const Text(
                       'STOP PRODUCING AUDIO',
@@ -180,7 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isStopProducingAudioCallable()) {
                         huddleClient.stopProducingAudio();
                       } else {
-                        customSnackbar(context, 'STOP PRODUCING AUDIO');
+                        customSnackbar(context,
+                            'STOP PRODUCING AUDIO -> not callable yet');
                       }
                     },
                   ),
@@ -188,14 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Video',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        huddleClient.enumerateCamDevices();
-                      },
-                      child: const Text(
-                        "ENUMERATE CAM DEVICE",
-                        textAlign: TextAlign.center,
-                      )),
+
                   TextButton(
                     child: const Text(
                       'FETCH VIDEO STREAM',
@@ -205,7 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isFetchVideoStreamCallable()) {
                         huddleClient.fetchVideoStream();
                       } else {
-                        customSnackbar(context, 'FETCH VIDEO STREAM');
+                        customSnackbar(
+                            context, 'FETCH VIDEO STREAM -> not callable yet');
                       }
                     },
                   ),
@@ -216,7 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         huddleClient
                             .produceVideo(huddleClient.getVideoStream());
                       } else {
-                        customSnackbar(context, 'PRODUCE VIDEO');
+                        customSnackbar(
+                            context, 'PRODUCE VIDEO -> not callable yet');
                       }
                     },
                   ),
@@ -242,7 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (huddleClient.isStopProducingVideoCallable()) {
                         huddleClient.stopProducingVideo();
                       } else {
-                        customSnackbar(context, 'STOP PRODUCTING VIDEO');
+                        customSnackbar(context,
+                            'STOP PRODUCTING VIDEO -> not callable yet');
                       }
                     },
                   ),
@@ -329,14 +314,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 15,
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 25,
+                      ),
                       child: Container(
                           color: Colors.grey,
                           width: 500,
                           height: 250,
-                          child: huddleClient.getRenderer() != null
+                          child: huddleClient.getLocalRenderer() != null
                               ? RTCVideoView(
-                                  huddleClient.getRenderer()!,
+                                  huddleClient.getLocalRenderer()!,
                                   objectFit: RTCVideoViewObjectFit
                                       .RTCVideoViewObjectFitCover,
                                 )
@@ -354,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(fontSize: 14),
                       ),
                       onPressed: () async {
-                        await initilialize();
+                        await initilializeRemoteStream();
                         setState(() {});
                       },
                     ),
