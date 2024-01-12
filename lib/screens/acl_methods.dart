@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:huddle01_flutter_client/huddle_client.dart';
 
+import '../widgets/custom_snackbar.dart';
+
 class ACLMethods extends StatefulWidget {
   const ACLMethods({super.key, required this.huddleClient});
   final HuddleClient huddleClient;
@@ -37,7 +39,7 @@ class _ACLMethodsState extends State<ACLMethods> {
               widget.huddleClient
                   .changePeerRole(peerIdController.value.text.trim(), "host");
             } else {
-              print("Enter Peer Id");
+              customSnackbar(context, "Enter Peer Id");
             }
           },
         ),
@@ -47,7 +49,7 @@ class _ACLMethodsState extends State<ACLMethods> {
             if (peerIdController.value.text.isNotEmpty) {
               widget.huddleClient.kickPeer(peerIdController.value.text.trim());
             } else {
-              print("Enter Peer Id");
+              customSnackbar(context, "Enter Peer Id");
             }
           },
         ),
@@ -68,7 +70,7 @@ class _ACLMethodsState extends State<ACLMethods> {
                 displayNameController.value.text.trim(),
               );
             } else {
-              print("Enter Display Name");
+              customSnackbar(context, "Enter Display Id");
             }
           },
         ),
